@@ -1,2 +1,2 @@
 # Autoguard2gpx
-Autoguard's srt file convert to gpx file
+convert Autoguard's srt file to gpx file
