@@ -1,6 +1,6 @@
 #/usr/bin/env python
 # -*- coding: utf-8 -*-
-""" Create gpx file from AutoGuard srt file """
+""" Convert AutoGuard's srt file to gpx file"""
 
 import sys
 from datetime import datetime, timezone, timedelta
