@@ -7,7 +7,7 @@ from datetime import datetime, timezone, timedelta
 from chardet.universaldetector import UniversalDetector
 
 # Usage
-CMD_PARAM_ERR="ag2gpx [from filename(srt)] [to filename(gpx)]"
+CMD_PARAM_ERR = "ag2gpx [from filename(srt)] [to filename(gpx)]"
 
 # AutoGuard's srt file TAG
 TAG_TIME = "時刻:"
@@ -32,7 +32,7 @@ GPX_FOOTER = """
 </trk>
 </gpx>
 """[1:]
-GPX_TRKPT_FORMAT ="""
+GPX_TRKPT_FORMAT = """
 <trkpt lat="{lat}" lon="{lng}">
 <time>{time}</time>
 <desc>Spped: {speed} km/h</desc>
@@ -68,7 +68,7 @@ def main_routine():
     with open(from_filename, "r", encoding=charset) as from_file:
         from_lines = from_file.readlines()
 
-    # convert    
+    # convert
     with open(to_filename, "w") as to_file:
         to_file.write(GPX_HEADER)
 
@@ -80,10 +80,10 @@ def main_routine():
                 # convert to utc timezone
                 time_string = line[len(TAG_TIME):].strip()
                 jst = timezone(timedelta(hours=+9), 'JST')
-                dt =  datetime.strptime(time_string, "%Y/%m/%d %H:%M:%S") \
+                utc_time = datetime.strptime(time_string, "%Y/%m/%d %H:%M:%S") \
                         .replace(tzinfo=jst) \
                         .astimezone(timezone.utc)
-                point['time'] = dt.isoformat()
+                point['time'] = utc_time.isoformat()
 
             if TAG_SPEED in line:
                 point['speed'] = line[len(TAG_SPEED):].strip()
